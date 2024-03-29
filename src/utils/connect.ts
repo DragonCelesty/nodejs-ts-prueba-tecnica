@@ -11,14 +11,14 @@ export default async function connect(): Promise<Db> {
         if (!client) {
             client = new MongoClient(uri)
             await client.connect()
-            logger.info(`Connected to MongoDB ${uri}`)
+            logger.info(`Connected to MongoDB`)
         }
         if (!db) {
             db = client.db()
         }
         return db
     } catch (error) {
-        logger.error(`Failed to connect to MongoDB ${uri}`, error)
+        logger.error(`Failed to connect to MongoDB`, error)
         throw error
     }
 }

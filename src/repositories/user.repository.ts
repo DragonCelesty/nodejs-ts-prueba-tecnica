@@ -8,7 +8,6 @@ let salt = config.get<number>('saltWorkFactor')
 export async function createUser(user: User): Promise<User | null> {
     try {
         let usersCollection = await setupCollection()
-        console.log(user)
         // Verificar si el email ya está en uso
         const existingUser = await usersCollection.findOne({
             email: user.email,
