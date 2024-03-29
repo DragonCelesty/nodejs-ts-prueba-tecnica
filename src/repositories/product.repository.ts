@@ -24,7 +24,7 @@ export async function getProducts(
     skip: number = 10,
     query: any,
     sort: any
-): Promise<Product[]> {
+): Promise<any[]> {
     try {
         const cacheKey: string = `products-${JSON.stringify(
             query
@@ -46,18 +46,31 @@ export async function getProducts(
         const products = await productsCursor.toArray()
 
         const categories = await getCategories()
+
+        if (!categories) {
+            throw new Error('Categories not found')
+        }
         const brands = await getBrands()
 
+        if (!brands) {
+            throw new Error('Brands not found')
+        }
         // Combinar las categorías y marcas con los productos
         const productsWithCategoriesAndBrands = products.map((product) => {
             return {
                 ...product,
-                category: categories.find(
-                    (cat) => cat._id.toString() === product.category.toString()
-                ),
-                brand: brands.find(
-                    (br) => br._id.toString() === product.brand.toString()
-                ),
+                category: categories.find((cat) => {
+                    if (cat._id) {
+                        return (
+                            cat._id.toString() === product.category?.toString()
+                        )
+                    }
+                }),
+                brand: brands.find((br) => {
+                    if (br._id) {
+                        return br._id.toString() === product.brand?.toString()
+                    }
+                }),
             }
         })
 

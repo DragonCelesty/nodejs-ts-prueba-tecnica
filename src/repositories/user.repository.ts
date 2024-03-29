@@ -17,6 +17,9 @@ export async function createUser(user: User): Promise<User | null> {
             throw new Error('Email already in use')
         }
         // Encriptar la contraseña con bcrypt antes de guardarla en la base de datos
+        if(user.password === undefined){
+            throw new Error('Password is required')
+        }
         const hashedPassword = await bcrypt.hash(user.password, salt)
         const userToSave = { ...user, password: hashedPassword }
         userToSave.createdAt = new Date()

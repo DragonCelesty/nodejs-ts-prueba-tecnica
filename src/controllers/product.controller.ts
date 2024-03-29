@@ -78,12 +78,12 @@ export async function getProductsHandler(
     try {
         const { page, limit, keyword, brand, category, sortBy } = req.query
         const products = await getProductsService(
-            page,
-            limit,
-            keyword,
-            brand,
-            category,
-            parseSortBy(sortBy)
+            page?.toString(),
+            limit?.toString(),
+            keyword?.toString(),
+            brand?.toString(),
+            category?.toString(),
+            parseSortBy(sortBy?.toString())
         )
         return res.send(products)
     } catch (e: any) {
@@ -93,7 +93,7 @@ export async function getProductsHandler(
 }
 
 export async function updateProductHandler(
-    req: Request<{}, {}, UpdateProductInput['body']>,
+    req: Request<{productId:string}, {}, UpdateProductInput['body']>,
     res: Response
 ) {
     try {
@@ -127,7 +127,7 @@ export async function deleteProductHandler(req: Request, res: Response) {
 }
 
 export async function createManyProductsHandler(
-    req: Request<{}, {}, Array<CreateProductInput['body']>>,
+    req: Request,
     res: Response
 ) {
     try {

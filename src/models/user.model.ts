@@ -1,13 +1,12 @@
 import { Collection, ObjectId } from 'mongodb'
 import connect from '../utils/connect'
 import logger from '../utils/logger'
-import config from 'config'
 
 export interface User {
     _id?: ObjectId
     name: string
     email: string
-    password: string
+    password?: string
     createdAt?: Date
     updatedAt?: Date
     active: boolean

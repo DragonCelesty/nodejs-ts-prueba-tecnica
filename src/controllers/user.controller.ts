@@ -17,16 +17,19 @@ export async function createUserHandler(
     res: Response
 ) {
     try {
+        const { email, name, password } = req.body
         // verificar si el usuario ya existe
-        const userExists = await getUsersService({ email: req.body.email })
-        if (userExists.length > 0) {
+        const userExists = await findUser({ email: email })
+        if (userExists) {
             return res.status(409).send('User already exists')
         }
-        // remove passwordConfirmation from the request body
-        if (req.body.passwordConfirmation) {
-            delete req.body.passwordConfirmation
-        }
-        const user = await createUserService({ ...req.body, active: true })
+
+        const user = await createUserService({
+            active: true,
+            email: email,
+            name: name,
+            password: password,
+        })
         return res.send(user)
     } catch (e: any) {
         logger.error(e)
@@ -58,16 +61,16 @@ export async function getUserHandler(req: Request, res: Response) {
 
 // actualizar password a un usuario por id
 export async function updateUserPasswordHandler(
-    req: Request<{}, {}, UpdateUserPasswordInput['body']>,
+    req: Request<{userId: string}, {}, UpdateUserPasswordInput['body']>,
     res: Response
 ) {
     try {
-        const userId = req.params.userId
-        // remove passwordConfirmation from the request body
-        if (req.body.passwordConfirmation) {
-            delete req.body.passwordConfirmation
+        if (!req.params || !req.params.userId) {
+            return res.status(409).send('User id is required')
         }
-        const user = await updateUserService(userId, req.body)
+        const userId = req.params.userId
+        const { password } = req.body
+        await updateUserService(userId, { password })
         return res.status(200).send('Password updated')
     } catch (e: any) {
         logger.error(e)

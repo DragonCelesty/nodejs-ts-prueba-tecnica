@@ -35,7 +35,7 @@ export const createProductSchema = object({
 
 export type CreateProductInput = TypeOf<typeof createProductSchema>
 
-export const updateProductSchema = object({
+const payload ={
     body: object({
         name: string().optional(),
         description: string().optional(),
@@ -47,12 +47,20 @@ export const updateProductSchema = object({
         category: string().optional(),
         images: array(string({})).optional(),
         image: string().optional(),
-    }),
+    })
+}
+
+const params = {
     params: object({
         productId: string({
-            required_error: 'Product ID is required',
+            required_error: 'productId is required',
         }),
     }),
+}
+
+export const updateProductSchema = object({
+    ...payload,
+    ...params
 })
 
 export type UpdateProductInput = TypeOf<typeof updateProductSchema>

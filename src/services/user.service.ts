@@ -36,7 +36,7 @@ export async function validatePassword({
             logger.error('User not found')
             return null
         }
-        const isValid = await comparePasswords(password, user.password)
+        const isValid = await comparePasswords(password, user.password || '')
         if (!isValid) {
             logger.error('Password is incorrect')
             return null

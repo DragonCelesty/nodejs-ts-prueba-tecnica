@@ -51,14 +51,13 @@ export async function getProductsService(
     keyword: string | undefined,
     brand: string | undefined,
     category: string | undefined,
-    sort: object | undefined
+    sort: any
 ): Promise<Product[]> {
     try {
         let query: any = {}
         let pageNumber: number = 1
         let skip: number = 10
         if (keyword) {
-            console.log(keyword)
             query['$or'] = [
                 { name: { $regex: keyword, $options: 'i' } },
                 { description: { $regex: keyword, $options: 'i' } },
@@ -162,35 +161,38 @@ export async function createManyProductsService(
     try {
         const categories = await getCategories()
         const brands = await getBrands()
-        const errors: string[] = []
         let count: number = 0
         let total: number = products.length
-        products = products.map((product) => {
+        const productsToAdd: Product[] = []
+        products.map((product) => {
             count++
             const { category, brand, ...rest } = product
+
             const categoryDB = categories.find(
-                (ct) => ct.name.toLowerCase() === category.toLowerCase()
+                (ct) =>
+                    ct.name.toLowerCase() === category?.toString().toLowerCase()
             )
-            if (!category) {
-                errors.push(`Category ${category} not found`)
+            if (!categoryDB) {
+                throw new Error(`Category ${category} not found`)
             }
             const brandDB = brands.find(
-                (br) => br.name.toUpperCase() === brand.toUpperCase()
+                (br) =>
+                    br.name.toUpperCase() === brand?.toString().toUpperCase()
             )
-            if (!brand) {
-                errors.push(`Brand ${brand} not found`)
+            if (!brandDB) {
+                throw new Error(`Brand ${brand} not found`)
             }
             logger.debug(`${count} of ${total} products processed ${rest.name}`)
-            return {
+            productsToAdd.push({
                 ...rest,
                 category: categoryDB._id,
                 brand: brandDB._id,
-                userId,
+                user: userId,
                 createdAt: new Date(),
                 updatedAt: new Date(),
-            }
+            })
         })
-        return await createManyProducts(products)
+        return await createManyProducts(productsToAdd)
     } catch (e: any) {
         throw new Error(e.message)
     }
