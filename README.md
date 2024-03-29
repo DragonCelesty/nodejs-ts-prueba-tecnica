@@ -1,17 +1,27 @@
 # Proyecto Backend Node.js
 
-Este es un proyecto backend desarrollado con TypeScript y gestionado con Yarn.
+Este es un proyecto backend desarrollado con TypeScript y gestionado con Yarn 
+
+## Descripción del proyecto
+
+Este proyecto es un backend desarrollado en Node.js que utiliza diversas tecnologías y herramientas para crear una aplicación web. Proporciona una estructura organizada y modularizada para el desarrollo de la aplicación, con controladores, modelos, rutas, middlewares y utilidades. Utiliza TypeScript como lenguaje de programación y ExpressJS como framework web. También se integra con MongoDB para el almacenamiento de datos, Redis para la gestión de tokens de acceso y actualización, y otras bibliotecas como Bcrypt, Morgan, Lodash y Zod.
+
+El proyecto incluye un diagrama de flujo de datos que muestra cómo se mueven los datos dentro de la aplicación, así como un diagrama que ilustra el flujo de los tokens de acceso y actualización.
+
+Si deseas contribuir al proyecto, puedes seguir los pasos mencionados en la sección de contribución. También puedes contactarnos si tienes alguna pregunta o sugerencia.
+
+¡Gracias por tu interés en este proyecto!
 
 ## Índice
 
-1. [Requisitos](#requisitos)
-2. [Instalación](#instalación)
-3. [Estructura del proyecto](#estructura-del-proyecto)
-4. [Tecnologías](#tecnologías)
-5. [Data flow](#data-flow)
-6. [Access & Refresh Token](#access--refresh-token)
-7. [Contribución](#contribución)
-8. [Contacto](#contacto)
+01. [Requisitos](#requisitos)
+02. [Instalación](#instalación)
+03. [Estructura del proyecto](#estructura-del-proyecto)
+04. [Tecnologías](#tecnologías)
+05. [Data flow](#data-flow)
+06. [Access & Refresh Token](#access--refresh-token)
+07. [Contribución](#contribución)
+08. [Contacto](#contacto)
 
 ## Requisitos
 
@@ -60,18 +70,23 @@ Este es un proyecto backend desarrollado con TypeScript y gestionado con Yarn.
 ## Access & Refresh Token
 
 ![Diagram](Diagrams/access-refresh-token.png)
+
 ## Contribución
 
 ## LINK del proyecto alojado en render
+
 https://nodejs-ts-prueba-tecnica.onrender.com
+
+## Video de explicación
+[Ver video de explicación](https://youtu.be/w75-5qVkoOI)
 
 ### Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
-1. Haz un fork de este repositorio.
-2. Crea una rama con tu nueva funcionalidad: `git checkout -b nueva-funcionalidad`.
-3. Realiza los cambios necesarios y realiza los commits: `git commit -m "Agrega nueva funcionalidad"`.
-4. Sube los cambios a tu repositorio: `git push origin nueva-funcionalidad`.
-5. Abre un pull request en este repositorio.
+01. Haz un fork de este repositorio.
+02. Crea una rama con tu nueva funcionalidad: `git checkout -b nueva-funcionalidad`.
+03. Realiza los cambios necesarios y realiza los commits: `git commit -m "Agrega nueva funcionalidad"`.
+04. Sube los cambios a tu repositorio: `git push origin nueva-funcionalidad`.
+05. Abre un pull request en este repositorio.
 
 ## Contacto
 
@@ -80,6 +95,5 @@ Si tienes alguna pregunta o sugerencia, no dudes en contactarnos:
 * Email: dragoncelesty@gmail.com
 * Teléfono: (505) 8828 2644
 * Sitio web: https://dragoncelesty.github.io/portafolio/
-
 
 <!-- Fin del documento -->
